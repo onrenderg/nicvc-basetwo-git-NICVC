@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="NICVC.TodayVcPage"
+              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls" 
+              ios:Page.UseSafeArea="true">
+    <NavigationPage.TitleView  >
+        <StackLayout x:Name="Custom_Navigation" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" >
+
+            <Image Source="ic_launcher.png"  HeightRequest="40"  VerticalOptions="CenterAndExpand"/>
+            <StackLayout  Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0">
+
+                <Label x:Name="Lbl_Header" Text="NIC Video Conferencing" Style="{StaticResource NavigationLabelColor}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"
+                      VerticalTextAlignment="Center" />
+               
+            </StackLayout>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="ic_home.png" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <StackLayout>
+            <Label x:Name="lbl_user_header1" Padding="3"  FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="2,2,2,0" FontAttributes="Bold" TextColor="White" BackgroundColor="Navy" Text="Today  VC"/>
+            <Label x:Name="lbl_user_header" Padding="3" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  Margin="2" FontAttributes="Bold"
+                   TextColor="White" BackgroundColor="Navy"  Text="Today VC"/>
+            <Grid Margin="5">
+              
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                  
+                  
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label x:Name="lbl_vcstatus" Text="Select VC Status" TextColor="Navy" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"  FontAttributes="Bold" Grid.Row="1" Grid.Column="0"/>
+                <Picker x:Name="picker_vcstatus" Title="Select VC Status" HorizontalOptions="FillAndExpand" TextColor="Maroon" Grid.Row="1" Grid.Column="1" SelectedIndexChanged="picker_vcstatus_SelectedIndexChanged" ios:Picker.UpdateMode="WhenFinished" />
+                <Label x:Name="lbl_startingtime" Text="Select Starting Time"  TextColor="Navy" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"  FontAttributes="Bold" Grid.Row="2" Grid.Column="0"/>
+                <Picker x:Name="picker_sort" Title="Select Starting Time" TextColor="Maroon"  HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="1" SelectedIndexChanged="picker_sort_SelectedIndexChanged" ios:Picker.UpdateMode="WhenFinished" />
+
+   
+            </Grid>
+
+            <CollectionView x:Name="listView_todayvc" SelectionMode="None" VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5" BackgroundColor="White" Stroke="Navy" StrokeThickness="2">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20"/>
+                            </Border.StrokeShape>
+                            <Grid HorizontalOptions="FillAndExpand" Padding="10">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="listView_todayvc_ItemTapped" />
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding labelname}" TextColor="Maroon" FontSize="Default" Grid.Column="0" FontAttributes="Bold"/>
+                                <Label Text="{Binding NoOfVc}" TextColor="Navy" HorizontalTextAlignment="Center" FontSize="Default" Grid.Column="1" FontAttributes="Bold"/>
+                                <Image Source="ic_vcforward" HeightRequest="35" Grid.Column="2"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+
+
+        </StackLayout>
+        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Border BackgroundColor="White" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
+                        <ActivityIndicator IsVisible="true" IsRunning="true" Margin="5"/>
+                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" WidthRequest="600" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
+        </ContentView>
+    </Grid>
+
+
+
+</ContentPage>

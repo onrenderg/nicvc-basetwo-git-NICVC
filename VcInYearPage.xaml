@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NICVC.VcInYearPage"   xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls" 
+              ios:Page.UseSafeArea="true">
+    <NavigationPage.TitleView  >
+        <StackLayout x:Name="Custom_Navigation" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" >
+
+            <Image Source="ic_launcher.png"  HeightRequest="40"  VerticalOptions="CenterAndExpand"/>
+            <StackLayout  Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0">
+
+                <Label x:Name="Lbl_Header" Text="NIC Video Conferencing" Style="{StaticResource NavigationLabelColor}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"
+                      VerticalTextAlignment="Center" />
+               
+            </StackLayout>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="ic_home.png" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <StackLayout>
+            <Label x:Name="lbl_user_header1" Padding="3"  FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="2,2,2,0" FontAttributes="Bold" TextColor="White" BackgroundColor="Navy" Text="Today  VC"/>
+
+            <Label x:Name="lbl_user_header" Padding="3" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  Margin="2" FontAttributes="Bold"
+                   TextColor="White" BackgroundColor="Navy"  Text="Year VC"/>
+           
+            <Grid Margin="5" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lbl_month" Text="Month" TextColor="Maroon"  FontSize="18" Grid.Column="0"  FontAttributes="Bold"/>
+                <Label x:Name="lbl_totalvc"  Text="Total Vc" TextColor="Navy" HorizontalTextAlignment="Center"  FontSize="18" Grid.Column="1"  FontAttributes="Bold"  />
+                <Label x:Name="lbl_totalhrs"  Text="Total Hours" TextColor="Navy" HorizontalTextAlignment="Center"  FontSize="18" Grid.Column="2"  FontAttributes="Bold"  />
+
+
+            </Grid>
+            
+
+            <ListView x:Name="listView_yearvc" HasUnevenRows="True" SeparatorColor="#126b8a"  SelectionMode="None">
+                <ListView.ItemTemplate >
+                    
+                    <DataTemplate>
+                        <ViewCell Appearing="ViewCell_Appearing">
+                            <!--<Frame Margin="5"  HasShadow="False" CornerRadius="20" BackgroundColor="White" BorderColor="Navy">-->
+                                <Grid HorizontalOptions="FillAndExpand" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding MonthName}" TextColor="Maroon"  FontSize="16" Grid.Column="0"  FontAttributes="Bold"/>
+                                    <Label Text="{Binding TotalVc}" TextColor="Navy" HorizontalTextAlignment="Center"  FontSize="16" Grid.Column="1"  FontAttributes="Bold"  />
+                                    <Label Text="{Binding TotalHours}" TextColor="Navy" HorizontalTextAlignment="Center"  FontSize="16" Grid.Column="2"  FontAttributes="Bold"  />
+
+                                    
+                                </Grid>
+                            <!--</Frame>-->
+
+                        </ViewCell>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+
+        </StackLayout>
+        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Frame BackgroundColor="White" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
+                        <ActivityIndicator IsVisible="true" IsRunning="true" Margin="5"/>
+                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" WidthRequest="600" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ContentView>
+    </Grid>
+
+
+
+</ContentPage>

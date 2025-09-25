@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"            
+             x:Class="NICVC.PreferencePage"
+             BackgroundImageSource="back1"
+              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls" 
+              
+              ios:Page.UseSafeArea="true">
+    <NavigationPage.TitleView  >
+        <StackLayout x:Name="Custom_Navigation" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" >
+
+            <Image Source="ic_launcher.png"  HeightRequest="40"  VerticalOptions="CenterAndExpand"/>
+            <StackLayout  Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0">
+
+                <Label x:Name="Lbl_Header" Text="NIC Video Conferencing" Style="{StaticResource NavigationLabelColor}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"
+                      VerticalTextAlignment="Center" />
+               
+            </StackLayout>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <Grid>
+        <StackLayout>
+           
+            
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout>
+
+                    <Frame CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue"  VerticalOptions="Start">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label x:Name="Lbl_UserDetails" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"  VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+                    
+                    <Frame VerticalOptions="Start" Margin="10"  HasShadow="False" CornerRadius="20" BackgroundColor="White">
+                        <StackLayout>
+
+                            <Label x:Name="lbl_title" Text="NIC Video Conferencing" BackgroundColor="Navy"   TextColor="White" FontSize="Default" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="Center" Padding="5"
+                      VerticalTextAlignment="Center" VerticalOptions="Start"/>
+
+                            <Label x:Name="lbl_state" Text="Select State" TextColor="Navy" Padding="5"  HorizontalOptions="Start"  VerticalTextAlignment="Start" FontSize="Default" FontAttributes="Bold" />
+                            <Picker x:Name="Picker_State" SelectedIndexChanged="Picker_State_SelectedIndexChanged" ios:Picker.UpdateMode="WhenFinished" />
+
+                            <StackLayout  x:Name="Districtlayout" Orientation="Vertical" IsVisible="False">
+                                <Label x:Name="lbl_district" Text="Select District" TextColor="Navy" Padding="5"  HorizontalOptions="Start" VerticalTextAlignment="Start" FontSize="Default" FontAttributes="Bold"/>
+                                <Picker x:Name="Picker_District" SelectedIndexChanged="Picker_District_SelectedIndexChanged" ios:Picker.UpdateMode="WhenFinished"  />
+                            </StackLayout>
+
+                            <StackLayout  x:Name="Studiolayout" Orientation="Vertical" IsVisible="False">
+                                <Label  x:Name="lbl_studio" Text="Select Studio" TextColor="Navy" Padding="5"  HorizontalOptions="Start"  VerticalTextAlignment="Start" FontSize="Default" FontAttributes="Bold"/>
+                                <Picker x:Name="Picker_Studio"  SelectedIndexChanged="Picker_Studio_SelectedIndexChanged" ios:Picker.UpdateMode="WhenFinished" />
+                            </StackLayout>
+
+                            <StackLayout  x:Name="languagelayout" Orientation="Vertical" IsVisible="true">
+                                <Label x:Name="lbl_language" Text="Select Language" TextColor="Navy" Padding="5"  HorizontalOptions="Start"  VerticalTextAlignment="Start" FontSize="Default" FontAttributes="Bold"/>
+                                <Picker Title="Select Language" x:Name="Picker_language"  SelectedIndexChanged="Picker_language_SelectedIndexChanged" >
+
+                                    <!--<Picker.ItemsSource>
+                                <x:Array  Type="{x:Type x:String}">
+                                    <x:String>English</x:String>
+                                    <x:String>Hindi</x:String>
+                                 
+                                </x:Array>
+                                </Picker.ItemsSource>-->
+
+                                </Picker>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal"  HorizontalOptions="Center" BackgroundColor="Transparent" >
+                                <Button x:Name="Btn_cancelPrefer" Text="Cancel" TextColor="Navy" BackgroundColor="AliceBlue"  Clicked="Btn_cancelPrefer_Clicked" Padding="5" CornerRadius="20"
+                                            HorizontalOptions="Center" FontSize="Medium" FontAttributes="Bold"  VerticalOptions="CenterAndExpand" IsVisible="false"/>
+                                <Button x:Name="Btn_SavePrefer" Text="Save" TextColor="Navy" BackgroundColor="AliceBlue"  Clicked="Btn_SavePrefer_Clicked" Padding="5" CornerRadius="20"
+                                            HorizontalOptions="Center" FontSize="Medium" FontAttributes="Bold"  VerticalOptions="CenterAndExpand"/>
+
+
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+             
+            </ScrollView>
+
+            <!--<Frame BackgroundColor="White"  Padding="0" IsVisible="True" x:Name="Stack_Footer"  Margin="2,0,2,2" CornerRadius="10" BorderColor="Navy">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                    <Label x:Name="Lbl_Footer" Text="Centre Of Competence For Mobile App Development NIC Himachal Pradesh" Padding="10" TextColor="Navy" 
+                          HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="14" VerticalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>-->
+            
+        </StackLayout>
+        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Frame BackgroundColor="White" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
+                        <ActivityIndicator IsVisible="true" IsRunning="true" Margin="5"/>
+                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" WidthRequest="600" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ContentView>
+    </Grid>
+</ContentPage>
