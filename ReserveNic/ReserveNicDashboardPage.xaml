@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NICVC.ReserveNicDashboardPage" 
@@ -13,57 +13,30 @@
             <Image Source="ic_launcher.png"  HeightRequest="40"  VerticalOptions="CenterAndExpand"/>
             <StackLayout  Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0">
 
-                <Label x:Name="Lbl_Header1" Text="NIC Video Conferencing" Style="{StaticResource NavigationLabelColor}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"
                       VerticalTextAlignment="Center" />
                
             </StackLayout>
         </StackLayout>
     </NavigationPage.TitleView>
     <Grid>
-        <StackLayout>
-            <Frame CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue"  VerticalOptions="Start">               
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">    
-                    <Label x:Name="Lbl_UserDetails" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"  VerticalOptions="Center"/>
-                </StackLayout>            
-            </Frame>
-            <Frame CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue"  VerticalOptions="Start">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                   
-                    <Label x:Name="Lbl_Header" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" 
-                       VerticalOptions="Center"/>
-                    <!--<Image Source="ic_refresh.png"  Aspect="AspectFit" HeightRequest="50" HorizontalOptions="End"/>-->
-                </StackLayout>
-            </Frame>
-          
-            <Grid Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Frame Grid.Row="0" CornerRadius="20" BorderColor="Navy" HorizontalOptions="fillAndExpand" Margin="5" BackgroundColor="AliceBlue">               
+            <StackLayout Orientation="Horizontal" HorizontalOptions="fillAndExpand">    
+                <Label x:Name="Lbl_UserDetails" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="fillAndExpand" VerticalOptions="Center"/>
+            </StackLayout>            
+        </Frame>
+        
+        <Frame Grid.Row="1" CornerRadius="20" BorderColor="Navy" HorizontalOptions="fillAndExpand" Margin="5" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="fillAndExpand">
+                <Label x:Name="Lbl_Header" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="bold" HorizontalTextAlignment="Center" HorizontalOptions="fillAndExpand" VerticalOptions="Center"/>
+                <!--<Image Source="ic_refresh.png"  Aspect="AspectFit" HeightRequest="50" HorizontalOptions="End"/>-->
 
-
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="70*"/>
-                </Grid.ColumnDefinitions>
-
-
-
-                <Label x:Name="lbl_fromdate" Text="Select Date" TextColor="Navy" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"  FontAttributes="Bold" Grid.Row="1" Grid.Column="0" FontSize="16"/>
-                <DatePicker FontSize="16" FontAttributes="Bold" Format="dd-MM-yyyy" x:Name="DatePicker_startdate"   HorizontalOptions="FillAndExpand"  MinimumDate="{x:Static sys:DateTime.Now}"  IsEnabled="True" DateSelected="DatePicker_startdate_DateSelected"  Grid.Row="1" Grid.Column="1"/>
-               
-
-
-            </Grid>
-            
-            <ScrollView VerticalOptions="FillAndExpand">
-
-                <Grid Margin="15,0,15,0" VerticalOptions="StartAndExpand">
-                    <StackLayout>
-                        <Grid>
-                            <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" HeightRequest="90">
-                                <StackLayout x:Name="TodayVcLayout" >
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="multistate_Tapped" NumberOfTapsRequired="1" />
                                     </StackLayout.GestureRecognizers>
