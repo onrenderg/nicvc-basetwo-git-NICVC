@@ -109,8 +109,12 @@
                     <StackLayout Margin="0,10,0,0">
                         <Frame CornerRadius="20" BorderColor="Navy" BackgroundColor="AliceBlue" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="5">
                             <Grid>
-                                <Label Grid.Column="0" Grid.ColumnSpan="2" x:Name="lbl_ongoingconferences" Text="Ongoing Conference" Padding="10" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" TextColor="Navy"/>
-                                <Image Margin="20,0,0,0" Grid.Column="1" Source="ic_live1.png" HeightRequest="30"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" x:Name="lbl_ongoingconferences" Text="Ongoing Conference" Padding="10" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" TextColor="Navy"/>
+                                <Image Grid.Column="1" Source="ic_live1.png" HeightRequest="30" Margin="10,0,10,0" VerticalOptions="Center"/>
                             </Grid>
                         </Frame>
 
