@@ -145,7 +145,7 @@
                                             </VerticalStackLayout>
 
                                             <!-- Action Buttons -->
-                                            <HorizontalStackLayout Spacing="10" Margin="0,10,0,0">
+                                            <HorizontalStackLayout Spacing="10" Margin="0,10,0,0" HorizontalOptions="Center">
                                                 <Button CornerRadius="20" CommandParameter="{Binding VC_ID}" Clicked="btn_takemethere_Clicked" FontSize="16" BackgroundColor="Transparent" BorderColor="Navy" BorderWidth="1" TextColor="Navy" IsVisible="{Binding takemetherevisibility}" Text="📍 Take Me There" FontAttributes="Bold"/>
                                                 <Button CornerRadius="20" CommandParameter="{Binding VC_ID}" Clicked="btn_alertme_Clicked" FontSize="16" BackgroundColor="Transparent" BorderColor="Navy" BorderWidth="1" TextColor="Navy" FontAttributes="Bold" IsVisible="{Binding alertmevisibility}" Text="⏰ Alert"/>
                                             </HorizontalStackLayout>
@@ -261,7 +261,7 @@
                                         </VerticalStackLayout>
 
                                         <!-- Action Buttons -->
-                                        <HorizontalStackLayout Spacing="10" Margin="0,10,0,0">
+                                        <HorizontalStackLayout Spacing="10" Margin="0,10,0,0" HorizontalOptions="Center">
                                             <Button CornerRadius="20" CommandParameter="{Binding VC_ID}" Clicked="btn_takemethere_Clicked" FontSize="16" BackgroundColor="Transparent" BorderColor="Navy" BorderWidth="1" TextColor="Navy" IsVisible="{Binding takemetherevisibility}" Text="📍 मुझे वहां ले चलो" FontAttributes="Bold"/>
                                             <Button CornerRadius="20" CommandParameter="{Binding VC_ID}" Clicked="btn_alertme_Clicked" FontSize="16" BackgroundColor="Transparent" BorderColor="Navy" BorderWidth="1" TextColor="Navy" FontAttributes="Bold" IsVisible="{Binding alertmevisibility}" Text="⏰ सचेत करें"/>
                                         </HorizontalStackLayout>
