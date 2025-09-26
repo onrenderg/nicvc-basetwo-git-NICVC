@@ -22,25 +22,31 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <Grid>
-        <StackLayout>
-            <Frame CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue"  VerticalOptions="Start">               
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">    
-                    <Label x:Name="Lbl_UserDetails" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"  VerticalOptions="Center"/>
-                </StackLayout>            
-            </Frame>
-            <Frame CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue"  VerticalOptions="Start">               
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="refresh_tapped" NumberOfTapsRequired="1"/>
-                    </StackLayout.GestureRecognizers>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Frame Grid.Row="0" CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue">               
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">    
+                <Label x:Name="Lbl_UserDetails" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+            </StackLayout>            
+        </Frame>
+        
+        <Frame Grid.Row="1" CornerRadius="20" BorderColor="Navy" HorizontalOptions="FillAndExpand" Margin="5" BackgroundColor="AliceBlue">               
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="refresh_tapped" NumberOfTapsRequired="1"/>
+                </StackLayout.GestureRecognizers>
 
-                    <Label x:Name="Lbl_Header" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" 
-                       VerticalOptions="Center"/>
-                    <Image Source="ic_refresh.png"  Aspect="AspectFit" HeightRequest="40" HorizontalOptions="End"/>
-                </StackLayout>            
-            </Frame>
+                <Label x:Name="Lbl_Header" BackgroundColor="Transparent" TextColor="Navy" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Image Source="ic_refresh.png" Aspect="AspectFit" HeightRequest="40" HorizontalOptions="End"/>
+            </StackLayout>            
+        </Frame>
 
-            <ScrollView VerticalOptions="FillAndExpand">                                      
+        <ScrollView Grid.Row="2">                                      
 
                 <Grid Margin="20,0,20,0" VerticalOptions="StartAndExpand">
                     <StackLayout>
@@ -137,20 +143,20 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 
-                                <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" HeightRequest="60" Margin="5">
-                                    <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                                <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" Margin="5">
+                                    <StackLayout Spacing="5" Padding="15" VerticalOptions="CenterAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="vcinmonth_tapped" NumberOfTapsRequired="1"/>
                                         </StackLayout.GestureRecognizers>
-                                        <Label x:Name="Lbl_vcinmonth" Text="VC In Month" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="12" FontAttributes="Bold" TextColor="Navy" HorizontalOptions="Center"/>
+                                        <Label x:Name="Lbl_vcinmonth" Text="VC In Month" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="12" FontAttributes="Bold" TextColor="Navy" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
                                     </StackLayout>
                                 </Frame>
-                                <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="1" BackgroundColor="#f2fffb"  VerticalOptions="StartAndExpand" HeightRequest="60" Margin="5">
-                                    <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                                <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="1" BackgroundColor="#f2fffb"  VerticalOptions="StartAndExpand" Margin="5">
+                                    <StackLayout Spacing="5" Padding="15" VerticalOptions="CenterAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="vcinyear_tapped" NumberOfTapsRequired="1"/>
                                         </StackLayout.GestureRecognizers>
-                                        <Label x:Name="Lbl_vcinyear" Text="VC In Year" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="12" FontAttributes="Bold" TextColor="Navy" HorizontalOptions="Center"/>
+                                        <Label x:Name="Lbl_vcinyear" Text="VC In Year" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="12" FontAttributes="Bold" TextColor="Navy" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
                                     </StackLayout>
                                 </Frame>
                             </Grid>
@@ -162,13 +168,10 @@
                 </Grid>
               
 
-            </ScrollView>
+        </ScrollView>
            
-                <StackLayout Orientation="Vertical" HorizontalOptions="Center" >
-                    <Label x:Name="Lbl_LastUpdate" Text="Last Update" Padding="10" TextColor="Navy" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="14" VerticalTextAlignment="Center"/>
-                </StackLayout>
-           
-
+        <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="Center" Margin="0,5,0,10">
+            <Label x:Name="Lbl_LastUpdate" Text="Last Update" Padding="10" TextColor="Navy" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="14" VerticalTextAlignment="Center"/>
         </StackLayout>                              
 
     <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
