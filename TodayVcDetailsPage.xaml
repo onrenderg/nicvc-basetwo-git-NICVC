@@ -59,61 +59,61 @@
                                             <!-- End Time -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="End Time" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding VCEndTime}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding VCEndTime}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Level -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Level" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding LevelName}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding LevelName}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Organisation -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Organisation" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding Org_Name}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding Org_Name}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Department -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Department" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding Dept_Name}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding Dept_Name}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Purpose -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Purpose" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding Purpose}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding Purpose}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Studio Name -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Studio Name" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding Studio_Name}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding Studio_Name}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Host Studio -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Host Studio" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding hoststudio}" TextColor="Red" FontSize="14" FontAttributes="Bold" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding hoststudio}" TextColor="Red" FontSize="14" FontAttributes="Bold" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Requested By -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Requested By" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding RequestedBy}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding RequestedBy}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Coordinator Name -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Coordinator Name" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding VcCoordName}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding VcCoordName}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Coordinator Mobile -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Coordinator Mobile" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding VcCoordMobile}" TextColor="Blue" FontSize="14" Margin="10,0,0,0" TextDecorations="Underline">
+                                                <Label Text="{Binding VcCoordMobile}" TextColor="Blue" FontSize="14" Margin="3,0,0,0" TextDecorations="Underline">
                                                     <Label.GestureRecognizers>
                                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
                                                     </Label.GestureRecognizers>
@@ -123,25 +123,25 @@
                                             <!-- Coordinator Email -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Coordinator Email" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding VcCoordEmail}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding VcCoordEmail}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- IP Phone -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="IP Phone" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding VcCoordIpPhone}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding VcCoordIpPhone}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Landline -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Landline" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding VccoordLandline}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding VccoordLandline}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Webroom -->
                                             <VerticalStackLayout Spacing="2">
                                                 <Label Text="Webroom" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                                <Label Text="{Binding webroom}" TextColor="OrangeRed" FontSize="14" FontAttributes="Bold" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding webroom}" TextColor="OrangeRed" FontSize="14" FontAttributes="Bold" Margin="3,0,0,0"/>
                                             </VerticalStackLayout>
 
                                             <!-- Action Buttons -->
@@ -175,61 +175,61 @@
                                         <!-- समाप्त समय -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="समाप्त समय" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding VCEndTime}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding VCEndTime}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- स्तर -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="स्तर" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding LevelName}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding LevelName}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- संगठन -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="संगठन" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding Org_Name}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding Org_Name}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- विभाग -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="विभाग" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding Dept_Name}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding Dept_Name}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- उद्देश्य -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="उद्देश्य" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding Purpose}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding Purpose}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- स्टूडियो नाम -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="स्टूडियो नाम" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding Studio_Name}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding Studio_Name}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- होस्ट स्टूडियो -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="होस्ट स्टूडियो" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding hoststudio}" TextColor="Red" FontSize="14" FontAttributes="Bold" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding hoststudio}" TextColor="Red" FontSize="14" FontAttributes="Bold" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- द्वारा अनुरोध किया गया -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="द्वारा अनुरोध किया गया" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding RequestedBy}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding RequestedBy}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- समन्वयक का नाम -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="समन्वयक का नाम" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding VcCoordName}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding VcCoordName}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- समन्वयक का मोबाइल -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="समन्वयक का मोबाइल" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding VcCoordMobile}" TextColor="Blue" FontSize="14" Margin="10,0,0,0" TextDecorations="Underline">
+                                            <Label Text="{Binding VcCoordMobile}" TextColor="Blue" FontSize="14" Margin="3,0,0,0" TextDecorations="Underline">
                                                 <Label.GestureRecognizers>
                                                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
                                                 </Label.GestureRecognizers>
@@ -239,25 +239,25 @@
                                         <!-- समन्वयक का ईमेल -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="समन्वयक का ईमेल" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding VcCoordEmail}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding VcCoordEmail}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- आईपी फोन -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="आईपी फोन" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding VcCoordIpPhone}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding VcCoordIpPhone}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- लैंडलाइन -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="लैंडलाइन" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding VccoordLandline}" TextColor="Maroon" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding VccoordLandline}" TextColor="Maroon" FontSize="14" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- वेब रूम -->
                                         <VerticalStackLayout Spacing="2">
                                             <Label Text="वेब रूम" TextColor="Navy" FontAttributes="Bold" FontSize="14"/>
-                                            <Label Text="{Binding webroom}" TextColor="OrangeRed" FontSize="14" FontAttributes="Bold" Margin="10,0,0,0"/>
+                                            <Label Text="{Binding webroom}" TextColor="OrangeRed" FontSize="14" FontAttributes="Bold" Margin="3,0,0,0"/>
                                         </VerticalStackLayout>
 
                                         <!-- Action Buttons -->
