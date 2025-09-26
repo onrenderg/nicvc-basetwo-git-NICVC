@@ -123,133 +123,264 @@ namespace NICVC
 
         void shownotificationpopup()
         {
-            string vcid, vcdate, vcstarttime, notifystartdate;
-            string query = "Select * from alertable where startingtime <>'All' and vcstatus='Confirmed'";
-            alertablelist = alertableDatabase.GetAlertable(query).ToList();
-
-            if (alertablelist.Any())
+            try
             {
-                for (int i = 0; i < alertablelist.Count; i++)
+                if (alertableDatabase == null)
                 {
-                    //NotStartDate = c.getString(c.getColumnIndex("NotStartDate"));
-                    vcid = alertablelist.ElementAt(i).VC_ID;
-                    vcdate = alertablelist.ElementAt(i).DateofVC;
-                    vcstarttime = alertablelist.ElementAt(i).Startingtime;
-                    // vcendtime = alertablelist.ElementAt(i).VCEndTime;
-                    notifystartdate = alertablelist.ElementAt(i).NotificationStartDate;
+                    alertableDatabase = new AlertableDatabase();
+                }
 
+                string query = "Select * from alertable where startingtime <>'All' and vcstatus='Confirmed'";
+                alertablelist = alertableDatabase.GetAlertable(query)?.ToList();
 
-                    string startdatetime = vcdate + " " + vcstarttime;
-                    // string enddatetime = vcdate + " " + vcendtime;
-                    string currentdatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    CultureInfo provider = CultureInfo.InvariantCulture;
-
-                    DateTime vcstartdatetime;
-                    DateTime notificationstartdate;
-                    DateTime currentdttm;
-
-                    try
+                if (alertablelist?.Any() == true)
+                {
+                    for (int i = 0; i < alertablelist.Count; i++)
                     {
-                        vcstartdatetime = DateTime.ParseExact(startdatetime, "yyyy/MM/dd HH:mm:ss", provider);
-                        notificationstartdate = DateTime.ParseExact(notifystartdate, "yyyy/MM/dd", provider);
-                    }
-                    catch
-                    {
-                        vcstartdatetime = DateTime.ParseExact(startdatetime, "yyyy-MM-dd HH:mm:ss", provider);
-                        notificationstartdate = DateTime.ParseExact(notifystartdate, "yyyy-MM-dd", provider);
-                    }
+                        var alertItem = alertablelist.ElementAt(i);
+                        if (alertItem == null) continue;
 
-                    try
-                    {
-                        currentdttm = DateTime.ParseExact(currentdatetime, "yyyy/MM/dd HH:mm:ss", provider);
-                    }
-                    catch
-                    {
-                        currentdttm = DateTime.ParseExact(currentdatetime, "yyyy-MM-dd HH:mm:ss", provider);
-                    }
+                        string vcid = alertItem.VC_ID;
+                        string vcdate = alertItem.DateofVC;
+                        string vcstarttime = alertItem.Startingtime;
+                        string notifystartdate = alertItem.NotificationStartDate;
 
-                    if (notificationstartdate != null)
-                    {
-                        // if (notificationstartdate.CompareTo(currentdttm) >= 0 && currentdttm.CompareTo(vcstartdatetime) <= 0)
-                        if (currentdttm.CompareTo(notificationstartdate) >= 0 && currentdttm.CompareTo(vcstartdatetime) <= 0)
+                        // Validate required fields
+                        if (string.IsNullOrEmpty(vcid) || string.IsNullOrEmpty(vcdate) || 
+                            string.IsNullOrEmpty(vcstarttime) || string.IsNullOrEmpty(notifystartdate))
                         {
-                            string message = "Upcoming VC :  " + vcid + " On : " + vcstartdatetime.ToString("dd-MM-yyyy") + " Starts At : " + vcstarttime + ".";
-                            DependencyService.Get<INotification>().CreateNotification("NICVC", message);
+                            continue;
+                        }
+
+                        try
+                        {
+                            string startdatetime = vcdate + " " + vcstarttime;
+                            string currentdatetime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            CultureInfo provider = CultureInfo.InvariantCulture;
+
+                            DateTime vcstartdatetime = DateTime.MinValue;
+                            DateTime notificationstartdate = DateTime.MinValue;
+                            DateTime currentdttm = DateTime.Now;
+
+                            // Try multiple date formats for parsing
+                            bool vcDateParsed = false;
+                            bool notifyDateParsed = false;
+
+                            // Try parsing VC start datetime
+                            string[] vcDateFormats = { "yyyy/MM/dd HH:mm:ss", "yyyy-MM-dd HH:mm:ss", "dd/MM/yyyy HH:mm:ss", "dd-MM-yyyy HH:mm:ss" };
+                            foreach (string format in vcDateFormats)
+                            {
+                                if (DateTime.TryParseExact(startdatetime, format, provider, DateTimeStyles.None, out vcstartdatetime))
+                                {
+                                    vcDateParsed = true;
+                                    break;
+                                }
+                            }
+
+                            if (!vcDateParsed)
+                            {
+                                continue; // Skip this item if date parsing fails
+                            }
+
+                            // Try parsing notification start date
+                            string[] notifyDateFormats = { "yyyy/MM/dd", "yyyy-MM-dd", "dd/MM/yyyy", "dd-MM-yyyy" };
+                            foreach (string format in notifyDateFormats)
+                            {
+                                if (DateTime.TryParseExact(notifystartdate, format, provider, DateTimeStyles.None, out notificationstartdate))
+                                {
+                                    notifyDateParsed = true;
+                                    break;
+                                }
+                            }
+
+                            if (!notifyDateParsed)
+                            {
+                                continue; // Skip this item if date parsing fails
+                            }
+
+                            // Check if notification should be shown
+                            if (currentdttm.CompareTo(notificationstartdate) >= 0 && currentdttm.CompareTo(vcstartdatetime) <= 0)
+                            {
+                                string message = "Upcoming VC :  " + vcid + " On : " + vcstartdatetime.ToString("dd-MM-yyyy") + " Starts At : " + vcstarttime + ".";
+                                
+                                try
+                                {
+                                    var notificationService = DependencyService.Get<INotification>();
+                                    if (notificationService != null)
+                                    {
+                                        notificationService.CreateNotification("NICVC", message);
+                                    }
+                                }
+                                catch (Exception notifyEx)
+                                {
+                                    // Log notification error but don't crash the app
+                                    System.Diagnostics.Debug.WriteLine($"Notification error: {notifyEx.Message}");
+                                }
+                            }
+                        }
+                        catch (Exception parseEx)
+                        {
+                            // Log parsing error but continue with next item
+                            System.Diagnostics.Debug.WriteLine($"Date parsing error for VC {vcid}: {parseEx.Message}");
+                            continue;
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Log the error but don't crash the app
+                System.Diagnostics.Debug.WriteLine($"Error in shownotificationpopup: {ex.Message}");
             }
         }
 
         async void showdashboard()
         {
-            dashboardlist = dashboardDatabase.GetDashboard($"Select * from dashboard").ToList();
-            todayvclist = todayVcDatabase.GetTodayVc("Select * from TodayVc where VCStatus = 'Confirmed' and Startingtime <> 'All'").ToList();
-
-
-            string lastupdatedate, lastupdatetime;
-            TodayVCCount = todayvclist.Count();
-            MonthVCCount = int.Parse(dashboardlist.ElementAt(0).MonthVCCount);
-            YearVCCount = int.Parse(dashboardlist.ElementAt(0).YearVCCount);
-
-
-            var impcnt = todayVcDatabase.GetTodayVc("Select * from TodayVc where Startingtime <> 'All' and VCStatus = 'Confirmed' and Important='Y' ").ToList();
-            ImportantVCCount = impcnt.Count();
-
-            string livevccount = $"Select * from TodayVc where VCStatus = 'Confirmed' and time('" + DateTime.Now.ToString("HH:mm:ss") + "') between time(Startingtime) and time(VCEndTime)";
-            var livecount = todayVcDatabase.GetTodayVc(livevccount).ToList();
-            OngoingVcCount = livecount.Count();
-
-            //string query = $"Select * from Alertable where substr(DateofVC,7)||substr(DateofVC,4,2)||substr(DateofVC,1,2)  < substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 7) || substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 4, 2) || substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 1, 2) ";
-            string query = $"delete from Alertable where substr(DateofVC,7)||substr(DateofVC,4,2)||substr(DateofVC,1,2)  < substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 7) || substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 4, 2) || substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 1, 2) ";
-            alertableDatabase.GetAlertable(query);
-
-            alertablelist = alertableDatabase.GetAlertable("Select * from Alertable  where Startingtime <> 'All' and ifnull(VCStatus,'Confirmed') = 'Confirmed'").ToList();
-            //ALertVCcount = alertablelist.Count();
-            string vcidfromalertstable;
-            if (alertablelist.Any())
+            try
             {
-                for (int i = 0; i < alertablelist.Count(); i++)
+                if (dashboardDatabase == null)
                 {
-                    vcidfromalertstable = alertablelist.ElementAt(i).VC_ID;
-                    var current = Connectivity.NetworkAccess;
-                    if (current == NetworkAccess.Internet)
-                    {
-                        await getsearchbyvcid(vcidfromalertstable);
-                    }
-                    /* else
-                     {
-                       await  DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("nointernet"), App.GetLabelByKey("close"));
-                     }*/
-
+                    dashboardDatabase = new DashboardDatabase();
                 }
+                if (todayVcDatabase == null)
+                {
+                    todayVcDatabase = new TodayVcDatabase();
+                }
+
+                dashboardlist = dashboardDatabase.GetDashboard($"Select * from dashboard")?.ToList();
+                todayvclist = todayVcDatabase.GetTodayVc("Select * from TodayVc where VCStatus = 'Confirmed' and Startingtime <> 'All'")?.ToList();
+
+                if (dashboardlist?.Any() != true)
+                {
+                    System.Diagnostics.Debug.WriteLine("Dashboard list is empty or null");
+                    return;
+                }
+
+                string lastupdatedate, lastupdatetime;
+                TodayVCCount = todayvclist?.Count() ?? 0;
+                
+                // Safe parsing with null checks
+                if (int.TryParse(dashboardlist.ElementAt(0)?.MonthVCCount, out int monthCount))
+                {
+                    MonthVCCount = monthCount;
+                }
+                else
+                {
+                    MonthVCCount = 0;
+                }
+
+                if (int.TryParse(dashboardlist.ElementAt(0)?.YearVCCount, out int yearCount))
+                {
+                    YearVCCount = yearCount;
+                }
+                else
+                {
+                    YearVCCount = 0;
+                }
+
+
+                if (alertableDatabase == null)
+                {
+                    alertableDatabase = new AlertableDatabase();
+                }
+
+                var impcnt = todayVcDatabase.GetTodayVc("Select * from TodayVc where Startingtime <> 'All' and VCStatus = 'Confirmed' and Important='Y' ")?.ToList();
+                ImportantVCCount = impcnt?.Count() ?? 0;
+
+                string livevccount = $"Select * from TodayVc where VCStatus = 'Confirmed' and time('" + DateTime.Now.ToString("HH:mm:ss") + "') between time(Startingtime) and time(VCEndTime)";
+                var livecount = todayVcDatabase.GetTodayVc(livevccount)?.ToList();
+                OngoingVcCount = livecount?.Count() ?? 0;
+
+                // Clean up old alertable records
+                try
+                {
+                    string query = $"delete from Alertable where substr(DateofVC,7)||substr(DateofVC,4,2)||substr(DateofVC,1,2)  < substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 7) || substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 4, 2) || substr('{DateTime.Now.ToString("yyyy-MM-dd")}', 1, 2) ";
+                    alertableDatabase.GetAlertable(query);
+                }
+                catch (Exception cleanupEx)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error cleaning up alertable records: {cleanupEx.Message}");
+                }
+
+                alertablelist = alertableDatabase.GetAlertable("Select * from Alertable  where Startingtime <> 'All' and ifnull(VCStatus,'Confirmed') = 'Confirmed'")?.ToList();
+                
+                if (alertablelist?.Any() == true)
+                {
+                    for (int i = 0; i < alertablelist.Count(); i++)
+                    {
+                        try
+                        {
+                            string vcidfromalertstable = alertablelist.ElementAt(i)?.VC_ID;
+                            if (!string.IsNullOrEmpty(vcidfromalertstable))
+                            {
+                                var current = Connectivity.NetworkAccess;
+                                if (current == NetworkAccess.Internet)
+                                {
+                                    await getsearchbyvcid(vcidfromalertstable);
+                                }
+                            }
+                        }
+                        catch (Exception vcEx)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Error processing VC ID: {vcEx.Message}");
+                            continue;
+                        }
+                    }
+                }
+
+                alertablelist = alertableDatabase.GetAlertable("Select * from Alertable  where Startingtime <> 'All' and VCStatus = 'Confirmed'")?.ToList();
+                ALertVCcount = alertablelist?.Count() ?? 0;
+
+                lastupdatedate = dashboardlist.ElementAt(0)?.Date ?? DateTime.Now.ToString("dd/MM/yyyy");
+                lastupdatetime = dashboardlist.ElementAt(0)?.Time ?? DateTime.Now.ToString("HH:mm:ss");
+
+                // Update UI labels safely
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    try
+                    {
+                        Lbl_TodayVC.Text = App.GetLabelByKey("todayvc") + " - " + TodayVCCount;
+                        Lbl_ongoingvc.Text = App.GetLabelByKey("Ongoing") + " - " + OngoingVcCount;
+                        Lbl_ImportantVC.Text = App.GetLabelByKey("ImportantVc") + " - " + ImportantVCCount;
+                        Lbl_alertsvc.Text = App.GetLabelByKey("viewalert") + " - " + ALertVCcount;
+
+                        if (App.Language == 0)
+                        {
+                            Lbl_vcinmonth.Text = App.GetLabelByKey("vcsessionin") + " " + DateTime.Now.ToString("MMM") + ", " + DateTime.Now.Year + " \n " + MonthVCCount.ToString();
+                            Lbl_vcinyear.Text = App.GetLabelByKey("vcsessionin") + " " + DateTime.Now.Year + " \n " + YearVCCount.ToString();
+                        }
+                        else
+                        {
+                            Lbl_vcinmonth.Text = DateTime.Now.ToString("MMM") + ", " + DateTime.Now.Year + " " + App.GetLabelByKey("vcsessionin") + " \n " + MonthVCCount.ToString();
+                            Lbl_vcinyear.Text = DateTime.Now.Year + ", " + App.GetLabelByKey("vcsessionin") + " \n " + YearVCCount.ToString();
+                        }
+
+                        Lbl_LastUpdate.Text = App.GetLabelByKey("lastupdate") + lastupdatedate + " " + App.GetLabelByKey("time") + " : " + lastupdatetime;
+                    }
+                    catch (Exception uiEx)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error updating UI: {uiEx.Message}");
+                    }
+                });
+
+                shownotificationpopup();
             }
-
-            alertablelist = alertableDatabase.GetAlertable("Select * from Alertable  where Startingtime <> 'All' and VCStatus = 'Confirmed'").ToList();
-            ALertVCcount = alertablelist.Count();
-
-            lastupdatedate = dashboardlist.ElementAt(0).Date;
-            lastupdatetime = dashboardlist.ElementAt(0).Time;
-
-            Lbl_TodayVC.Text = App.GetLabelByKey("todayvc") + " - " + TodayVCCount;
-            Lbl_ongoingvc.Text = App.GetLabelByKey("Ongoing") + " - " + OngoingVcCount;
-            Lbl_ImportantVC.Text = App.GetLabelByKey("ImportantVc") + " - " + ImportantVCCount;
-            Lbl_alertsvc.Text = App.GetLabelByKey("viewalert") + " - " + ALertVCcount;
-
-            if (App.Language == 0)
+            catch (Exception ex)
             {
-                Lbl_vcinmonth.Text = App.GetLabelByKey("vcsessionin") + " " + DateTime.Now.ToString("MMM") + ", " + DateTime.Now.Year + " \n " + MonthVCCount.ToString();
-                Lbl_vcinyear.Text = App.GetLabelByKey("vcsessionin") + " " + DateTime.Now.Year + " \n " + YearVCCount.ToString();
+                System.Diagnostics.Debug.WriteLine($"Error in showdashboard: {ex.Message}");
+                // Ensure UI is updated even if there's an error
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    try
+                    {
+                        Lbl_TodayVC.Text = App.GetLabelByKey("todayvc") + " - 0";
+                        Lbl_ongoingvc.Text = App.GetLabelByKey("Ongoing") + " - 0";
+                        Lbl_ImportantVC.Text = App.GetLabelByKey("ImportantVc") + " - 0";
+                        Lbl_alertsvc.Text = App.GetLabelByKey("viewalert") + " - 0";
+                    }
+                    catch { }
+                });
             }
-            else
-            {
-                Lbl_vcinmonth.Text = DateTime.Now.ToString("MMM") + ", " + DateTime.Now.Year + " " + App.GetLabelByKey("vcsessionin") + " \n " + MonthVCCount.ToString();
-                Lbl_vcinyear.Text = DateTime.Now.Year + ", " + App.GetLabelByKey("vcsessionin") + " \n " + YearVCCount.ToString();
-            }
-
-            Lbl_LastUpdate.Text = App.GetLabelByKey("lastupdate") + lastupdatedate + " " + App.GetLabelByKey("time") + " : " + lastupdatetime;
-
-            shownotificationpopup();
         }
 
         private void Todayvc_Tapped(object sender, EventArgs e)
