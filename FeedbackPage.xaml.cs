@@ -45,7 +45,7 @@ namespace NICVC
 
             if (!personalInfolist.Any())
             {
-                 Navigation.PushAsync(new PersonalinforPage());
+                Application.Current.MainPage = new NavigationPage(new PersonalinforPage());
             }
             else
             {

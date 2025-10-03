@@ -150,7 +150,7 @@ namespace NICVC
 
         private void btn_cancel_Clicked(object sender, EventArgs e)
         {
-             Navigation.PopAsync();
+            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
         }
 
 
