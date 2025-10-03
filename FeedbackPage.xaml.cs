@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -37,7 +37,7 @@ namespace NICVC
             Lbl_UserDetails.Text = Preferences.Get("DisplayName", "");
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             title_feedbackpage.Title = App.GetLabelByKey("Feedback");
 
@@ -45,7 +45,8 @@ namespace NICVC
 
             if (!personalInfolist.Any())
             {
-                Application.Current.MainPage = new NavigationPage(new PersonalinforPage());
+                await Navigation.PushAsync(new PersonalinforPage());
+                return;
             }
             else
             {

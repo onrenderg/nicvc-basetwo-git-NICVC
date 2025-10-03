@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -142,18 +142,15 @@ namespace NICVC
             string query = $"update PersonalInfo set Mobile='{mobile}', Name='{name}',Department='{department}',Designation='{designation}',Email='{email}' ";
             personalInfoDatabase.customquery(query);
             await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("profileupdated"), App.GetLabelByKey("close"));
-            // App.CurrentTabpageIndex = 0;
             // Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
             await Navigation.PopAsync();
 
         }
 
-        private void btn_cancel_Clicked(object sender, EventArgs e)
+        private async void btn_cancel_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopAsync();
         }
-
-
 
         async Task<bool> checkvalidation()
         {
