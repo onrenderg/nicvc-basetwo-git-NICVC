@@ -39,17 +39,13 @@ namespace NICVC
 
         protected override async void OnAppearing()
         {
-            title_feedbackpage.Title = App.GetLabelByKey("Feedback");
-
-            personalInfolist = personalInfoDatabase.GetPersonalInfo("Select * from personalinfo").ToList();
-
-            if (!personalInfolist.Any())
+            try
             {
-                await Navigation.PushAsync(new PersonalinforPage());
-                return;
-            }
-            else
-            {
+                title_feedbackpage.Title = App.GetLabelByKey("Feedback");
+
+                personalInfolist = personalInfoDatabase.GetPersonalInfo("Select * from personalinfo").ToList();
+
+                // Personal info check is now handled at TabbedPage level
                 Lbl_Header.Text = App.GetLabelByKey("feedbackidbased");
                 btn_save.Text = App.GetLabelByKey("savefeedback");
                 lbl_selvc.Text = App.GetLabelByKey("selectvc");
@@ -60,22 +56,34 @@ namespace NICVC
                 lbl_remarks.Text = App.GetLabelByKey("remarks");
                 editor_remarks.Placeholder = App.GetLabelByKey("remarks");
                 SavedUserPreferList = saveUserPreferencesDatabase.GetSaveUserPreferences("select * from saveUserPreferences").ToList();
-                string statename = SavedUserPreferList.ElementAt(0).StateName.ToString();
-
-                try
+                
+                string statename = "";
+                if (SavedUserPreferList.Any())
                 {
-                    districtname = SavedUserPreferList.ElementAt(0).DistrictName.ToString();
+                    statename = SavedUserPreferList.ElementAt(0).StateName.ToString();
+                    
+                    try
+                    {
+                        districtname = SavedUserPreferList.ElementAt(0).DistrictName.ToString();
+                    }
+                    catch
+                    {
+                        districtname = "";
+                    }
+                    try
+                    {
+                        studioname = SavedUserPreferList.ElementAt(0).StudioName.ToString();
+                    }
+                    catch
+                    {
+                        studioname = "";
+                    }
                 }
-                catch
+                else
                 {
+                    // No user preferences found - set defaults
+                    statename = "Default State";
                     districtname = "";
-                }
-                try
-                {
-                    studioname = SavedUserPreferList.ElementAt(0).StudioName.ToString();
-                }
-                catch
-                {
                     studioname = "";
                 }
 
@@ -101,25 +109,37 @@ namespace NICVC
                 }
                 else
                 {
-                    DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("nointernet"), App.GetLabelByKey("close"));
+                    // No internet - just load local data without showing popup
                     loadtodayvc();
                 }
             }
+            catch (Exception ex)
+            {
+                // Don't show popup on page load - just log the error
+                System.Diagnostics.Debug.WriteLine("FeedbackPage Error: " + ex.Message);
+            }
         }
 
-        void loadtodayvc()
+        async void loadtodayvc()
         {
-            var currenttime = string.Format("{0:HH:mm:ss}", DateTime.Now);
-            string query = "select * from todayvc where time(VCEndTime) <= '" + currenttime + "'";
-
-            todayVclist = todayVcDatabase.GetTodayVc(query).ToList();
-            picker_vc.ItemsSource = todayVclist;
-            if (todayVclist.Any())
+            try
             {
-                picker_vc.ItemDisplayBinding = new Binding("Purpose");
-                picker_vc.SelectedIndex = 0;
-            }
+                var currenttime = string.Format("{0:HH:mm:ss}", DateTime.Now);
+                string query = "select * from todayvc where time(VCEndTime) <= '" + currenttime + "'";
 
+                todayVclist = todayVcDatabase.GetTodayVc(query).ToList();
+                picker_vc.ItemsSource = todayVclist;
+                if (todayVclist.Any())
+                {
+                    picker_vc.ItemDisplayBinding = new Binding("Purpose");
+                    picker_vc.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle database errors gracefully - just log, don't show popup
+                System.Diagnostics.Debug.WriteLine("loadtodayvc Error: " + ex.Message);
+            }
         }
 
         private void picker_vc_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,24 +162,36 @@ namespace NICVC
             List<TodayVc> todayvclistStudio = new List<TodayVc>();
             string query = "select StudioID, Studio_Name||','||participantsExt as Studio_Name from TodayVc where VC_ID ='" + vcid + "' order by Studio_Name";
             todayVclist = todayVcDatabase.GetTodayVc(query).ToList();
-            string[] subsID = todayVclist.FirstOrDefault().StudioID.Split(',');
-            string[] subsName = todayVclist.FirstOrDefault().Studio_Name.Split(',');
-            try
+            
+            // Check if todayVclist has data before accessing it
+            if (todayVclist.Any() && todayVclist.FirstOrDefault() != null)
             {
-                for (int i = 0; i < subsID.Count(); i++)
+                var firstVc = todayVclist.FirstOrDefault();
+                if (!string.IsNullOrEmpty(firstVc.StudioID) && !string.IsNullOrEmpty(firstVc.Studio_Name))
                 {
-                    var items = new TodayVc();
-                    items.StudioID = subsID[i];
-                    items.Studio_Name = subsName[i];
-                    todayvclistStudio.Add(items);
+                    string[] subsID = firstVc.StudioID.Split(',');
+                    string[] subsName = firstVc.Studio_Name.Split(',');
+                    try
+                    {
+                        for (int i = 0; i < subsID.Count(); i++)
+                        {
+                            var items = new TodayVc();
+                            items.StudioID = subsID[i];
+                            items.Studio_Name = subsName[i];
+                            todayvclistStudio.Add(items);
+                        }
+                        picker_studio.ItemsSource = todayvclistStudio;
+                        picker_studio.ItemDisplayBinding = new Binding("Studio_Name");
+                        picker_studio.SelectedIndex = 0;
+                        mystudioID = todayvclistStudio.ElementAt(picker_studio.SelectedIndex).StudioID.Trim();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle errors gracefully - just log
+                        System.Diagnostics.Debug.WriteLine("LoadStudio Error: " + ex.Message);
+                    }
                 }
-                picker_studio.ItemsSource = todayvclistStudio;
-                picker_studio.ItemDisplayBinding = new Binding("Studio_Name");
-                picker_studio.SelectedIndex = 0;
-                mystudioID = todayvclistStudio.ElementAt(picker_studio.SelectedIndex).StudioID.Trim();
             }
-            catch { }
-
         }
 
         void One(object sender, EventArgs e)
@@ -254,9 +286,15 @@ namespace NICVC
 
         async Task<bool> checkvalidation()
         {
+            if (picker_vc.ItemsSource == null || !((List<TodayVc>)picker_vc.ItemsSource).Any())
+            {
+                await DisplayAlert(App.GetLabelByKey("NICVC"), "No VC data available for feedback.", App.GetLabelByKey("close"));
+                return false;
+            }
+            
             if (picker_studio.SelectedIndex == -1)
             {
-                await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("selectvc"), App.GetLabelByKey("close"));
+                await DisplayAlert(App.GetLabelByKey("NICVC"), "Please select a VC first.", App.GetLabelByKey("close"));
                 return false;
             }
 

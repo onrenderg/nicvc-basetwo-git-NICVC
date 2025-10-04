@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using NICVC.Model;
 using System.Collections.Generic;
@@ -22,20 +22,30 @@ namespace NICVC
             lbl_appname.Text = App.GetLabelByKey("NICVC") + " " + App.GetLabelByKey("Version") + currentVersion;
             lbl_preferences.Text = App.GetLabelByKey("Preferences");
             lbl_Logout.Text = App.GetLabelByKey("logout");
-            lbl_personlainfo.Text = App.GetLabelByKey("updatepersonalinfo");            
+            lbl_personlainfo.Text = App.GetLabelByKey("updatepersonalinfo");
+            lbl_deleteprofile.Text = "Delete Profile";            
             lbl_deptheading.Text = App.GetLabelByKey("vcdivison");
 
             lbl_depttCall.Text = App.GetLabelByKey("niccontactinfo") + " - 1800111555";
             lbl_depttemail.Text = App.GetLabelByKey("Email") + " - vc-delhi[at]nic[dot]in";
             lbl_depttWebSite.Text = App.GetLabelByKey("nicwebsiteinfo") + " - http://vidcon.nic.in";
 
-            stack_personlainfo.IsVisible = false;
             PersonalInfoDatabase personalInfoDatabase = new PersonalInfoDatabase();
             List<PersonalInfo> personalInfolist = personalInfoDatabase.GetPersonalInfo("Select * from personalinfo").ToList();
 
+            // Always show both profile and delete profile options
+            stack_personlainfo.IsVisible = true;
+            stack_deleteprofile.IsVisible = true;
+            
             if (personalInfolist.Any())
             {
-                stack_personlainfo.IsVisible = true;
+                // Personal info exists - show update option
+                lbl_personlainfo.Text = App.GetLabelByKey("updatepersonalinfo");
+            }
+            else
+            {
+                // No personal info - show create profile option
+                lbl_personlainfo.Text = "Create Profile";
             }           
         }
 
@@ -127,6 +137,31 @@ namespace NICVC
         private void PersonalInfo_tapped(object sender, EventArgs e)
         {
             Navigation.PushAsync(new PersonalinforPage());
+        }
+
+        private async void DeleteProfile_tapped(object sender, EventArgs e)
+        {
+            var result = await DisplayAlert("Delete Profile", "Are you sure you want to delete your profile? This action cannot be undone.", "Delete", "Cancel");
+            if (result)
+            {
+                try
+                {
+                    // Delete personal information from database
+                    PersonalInfoDatabase personalInfoDatabase = new PersonalInfoDatabase();
+                    personalInfoDatabase.customquery("DELETE FROM PersonalInfo");
+                    
+                    await DisplayAlert("Success", "Profile deleted successfully.", "OK");
+                    
+                    // Update the label to show "Create Profile" instead of "Update Personal Info"
+                    lbl_personlainfo.Text = "Create Profile";
+                    
+                    // Don't recreate the page - just update the current state
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", "Failed to delete profile: " + ex.Message, "OK");
+                }
+            }
         }
 
         private async void Logout(object sender, EventArgs e)

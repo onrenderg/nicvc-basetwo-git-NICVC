@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using NICVC.Model;
 using System;
 using System.Collections.Generic;
@@ -306,6 +306,23 @@ namespace NICVC
                 flag = true;
             }
             return flag;
+        }
+
+        // Helper method to navigate to TabbedPage with consistent styling
+        public static void NavigateToTabbedPage()
+        {
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            }
+            else
+            {
+                Current.MainPage = new NavigationPage(new NICVCTabbedPage())
+                {
+                    BarBackgroundColor = Color.FromArgb("#2196f3"),
+                    BarTextColor = Colors.WhiteSmoke
+                };
+            }
         }
     }
 }

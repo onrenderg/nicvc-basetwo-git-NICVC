@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
@@ -79,6 +79,16 @@
                             </StackLayout.GestureRecognizers>
                             <Image Source="ic_profile" HeightRequest="30"/>
                             <Label x:Name="lbl_personlainfo" Text="Update personal Info." TextColor="Black" HorizontalOptions="FillAndExpand" FontSize="16" />
+                        </StackLayout>
+
+                        <StackLayout x:Name="stack_deleteprofile" Orientation="Horizontal" Margin="5,0,0,0">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="DeleteProfile_tapped"
+                                    NumberOfTapsRequired="1" />
+                            </StackLayout.GestureRecognizers>
+                            <Image Source="ic_delete" HeightRequest="30"/>
+                            <Label x:Name="lbl_deleteprofile" Text="Delete Profile" TextColor="Red" HorizontalOptions="FillAndExpand" FontSize="16" />
                         </StackLayout>
 
                         <StackLayout Orientation="Horizontal"  Margin="5,0,0,0">

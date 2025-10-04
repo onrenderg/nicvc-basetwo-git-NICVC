@@ -26,10 +26,19 @@ namespace NICVC
             InitializeComponent();
             saveUserPreferencesDatabase = new SaveUserPreferencesDatabase();
             personalInfoDatabase = new PersonalInfoDatabase();
+            
+            // Set tab properties for when used as Feedback tab
+            Title = "Feedback";
+            IconImageSource = "ic_feedback1";
+            
+            // Hide the back button
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         protected override void OnAppearing()
         {
+            // Set the header title
+            Lbl_Header1.Text = App.GetLabelByKey("nicvdconf");
             Lbl_Header.Text = App.GetLabelByKey("personalinfo");
 
             lbl_mobile.Text = App.GetLabelByKey("mobileno");
@@ -131,9 +140,33 @@ namespace NICVC
                 item.Email = email.ToString().Trim();
 
                 personalInfoDatabase.AddPersonalInfo(item);
+                
+                // Also create default user preferences to avoid "incomplete input" errors
+                SaveUserPreferencesDatabase saveUserPreferencesDatabase = new SaveUserPreferencesDatabase();
+                var userPref = new SaveUserPreferences();
+                userPref.StateID = "1";
+                userPref.StateName = "Himachal Pradesh";
+                userPref.DistrictID = "1";
+                userPref.DistrictName = "Shimla";
+                userPref.StudioID = "1";
+                userPref.StudioName = "All Studios";
+                userPref.StateChanged = "0";
+                userPref.language = 0;
+                saveUserPreferencesDatabase.AddSaveUserPreferences(userPref);
+                
                 await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("profilecreated"), App.GetLabelByKey("close"));
-                App.CurrentTabpageIndex = 2;
-                Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+                
+                // Replace the current PersonalinforPage with FeedbackPage in the tab
+                var tabbedPage = (TabbedPage)Parent;
+                var feedbackPage = new FeedbackPage();
+                feedbackPage.Title = "Feedback";
+                feedbackPage.IconImageSource = "ic_feedback1";
+                
+                // Replace the current tab (index 2) with FeedbackPage
+                tabbedPage.Children[2] = feedbackPage;
+                
+                // Navigate to the Feedback tab
+                tabbedPage.CurrentPage = tabbedPage.Children[2];
             }
         }
 
@@ -149,7 +182,9 @@ namespace NICVC
 
         private async void btn_cancel_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            // Just switch to the dashboard tab without recreating the TabbedPage
+            var tabbedPage = (TabbedPage)Parent;
+            tabbedPage.CurrentPage = tabbedPage.Children[0]; // Switch to dashboard (index 0)
         }
 
         async Task<bool> checkvalidation()
