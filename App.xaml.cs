@@ -324,5 +324,93 @@ namespace NICVC
                 };
             }
         }
+
+        // Force complete app refresh - like restart
+        public static void ForceAppRefresh()
+        {
+            try
+            {
+                // Clear all cached data
+                SavedUserPreferList = null;
+                UserLoginValues = null;
+                MyLanguage = null;
+                StateMasterList = null;
+                DistrictMasterList = null;
+                StudioMasterList = null;
+
+                // Reinitialize the app
+                var app = Current as App;
+                app?.ReinitializeApp();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ForceAppRefresh Error: " + ex.Message);
+            }
+        }
+
+        public void ReinitializeApp()
+        {
+            try
+            {
+                // Reinitialize databases
+                userlogindatabase = new UserLoginDatabase();
+                saveUserPreferencesDatabase = new SaveUserPreferencesDatabase();
+                languageMasterDatabase = new LanguageMasterDatabase();
+                stateMasterDatabase = new StateMasterDatabase();
+                districtMasterDatabase = new DistrictMasterDatabase();
+                studioMasterDatabase = new StudioMasterDatabase();
+
+                // Reload user data
+                UserLoginValues = userlogindatabase.GetUserLogin("Select * from UserLogin").ToList();
+                if (UserLoginValues.Count > 0)
+                {
+                    getusername = UserLoginValues.ElementAt(0).UserName;
+                    getuserpwd = UserLoginValues.ElementAt(0).password;
+                    StateMasterList = stateMasterDatabase.GetStateMaster("select * from StateMaster").ToList();
+                    DistrictMasterList = districtMasterDatabase.GetDistrictMaster("select * from DistrictMaster").ToList();
+                    StudioMasterList = studioMasterDatabase.GetStudioMaster("select * from StudioMaster").ToList();
+                    SavedUserPreferList = saveUserPreferencesDatabase.GetSaveUserPreferences("select * from saveUserPreferences").ToList();
+                }
+
+                // Reload language
+                var languge = saveUserPreferencesDatabase.GetSaveUserPreferences("select * from saveUserPreferences").ToList();
+                try
+                {
+                    Language = languge.ElementAt(0).language;
+                }
+                catch
+                {
+                    Language = 0;
+                }
+                MyLanguage = languageMasterDatabase.GetLanguageMaster($"select MultipleResourceKey,ResourceKey, (case when ({Language} = 0) then ResourceValue else LocalResourceValue end)ResourceValue from  LanguageMaster").ToList();
+
+                // Navigate to appropriate page
+                if (UserLoginValues.Count == 0 || SavedUserPreferList.Count == 0)
+                {
+                    // Not logged in - go to login
+                    if (DeviceInfo.Platform == DevicePlatform.iOS)
+                    {
+                        MainPage = new NavigationPage(new ParichayPage());
+                    }
+                    else
+                    {
+                        MainPage = new NavigationPage(new ParichayPage())
+                        {
+                            BarBackgroundColor = Color.FromArgb("#2196f3"),
+                            BarTextColor = Colors.WhiteSmoke
+                        };
+                    }
+                }
+                else
+                {
+                    // Logged in - go to tabbed page
+                    NavigateToTabbedPage();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ReinitializeApp Error: " + ex.Message);
+            }
+        }
     }
 }

@@ -156,17 +156,9 @@ namespace NICVC
                 
                 await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("profilecreated"), App.GetLabelByKey("close"));
                 
-                // Replace the current PersonalinforPage with FeedbackPage in the tab
-                var tabbedPage = (TabbedPage)Parent;
-                var feedbackPage = new FeedbackPage();
-                feedbackPage.Title = "Feedback";
-                feedbackPage.IconImageSource = "ic_feedback1";
-                
-                // Replace the current tab (index 2) with FeedbackPage
-                tabbedPage.Children[2] = feedbackPage;
-                
-                // Navigate to the Feedback tab
-                tabbedPage.CurrentPage = tabbedPage.Children[2];
+                // Force complete app refresh to properly reinitialize everything
+                App.CurrentTabpageIndex = 2; // Set to Feedback tab
+                App.ForceAppRefresh();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using NICVC.Model;
 using System;
 using System.Collections.Generic;
@@ -331,20 +331,18 @@ namespace NICVC
                     item.StudioName = studioName;
                     item.StateChanged = "Y";
                     item.language = Picker_language.SelectedIndex;
-
                     saveuserpreferencesDatabase.AddSaveUserPreferences(item);
 
                     languageMasterDatabase = new LanguageMasterDatabase();
                     App.Language = Picker_language.SelectedIndex;
                     App.MyLanguage = languageMasterDatabase.GetLanguageMaster($"select ResourceKey, (case when ({App.Language} = 0) then ResourceValue else LocalResourceValue end)ResourceValue from  LanguageMaster").ToList();
                     App.SavedUserPreferList = saveUserPreferencesDatabase.GetSaveUserPreferences("select * from SaveUserPreferences").ToList();
-                    App.CurrentTabpageIndex= 0;
-                    Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+                    App.CurrentTabpageIndex = 0;
+                    App.ForceAppRefresh();
 
                 }
             }
         }
-
         private void Btn_cancelPrefer_Clicked(object sender, EventArgs e)
         {
             Navigation.PopAsync();

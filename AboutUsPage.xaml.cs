@@ -152,10 +152,8 @@ namespace NICVC
                     
                     await DisplayAlert("Success", "Profile deleted successfully.", "OK");
                     
-                    // Update the label to show "Create Profile" instead of "Update Personal Info"
-                    lbl_personlainfo.Text = "Create Profile";
-                    
-                    // Don't recreate the page - just update the current state
+                    // Force complete app refresh to properly reinitialize everything
+                    App.ForceAppRefresh();
                 }
                 catch (Exception ex)
                 {
@@ -209,7 +207,9 @@ namespace NICVC
 
                 App.SavedUserPreferList = null;
                 await Auth_Revoke();
-                Stack_Carousel.IsVisible = true;
+                
+                // Force complete app refresh instead of just showing carousel
+                App.ForceAppRefresh();
             }
 
         }
