@@ -115,12 +115,12 @@
 
         </StackLayout>
 
-        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20" IsVisible="false" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Frame BackgroundColor="White" HorizontalOptions="FillAndExpand">
-                    <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
-                        <ActivityIndicator IsVisible="true" IsRunning="true" Margin="5"/>
-                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" WidthRequest="600" VerticalTextAlignment="Center"/>
+                <Frame BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center" Padding="20" CornerRadius="10">
+                    <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ActivityIndicator IsVisible="true" IsRunning="true" Color="Navy"/>
+                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
                     </StackLayout>
                 </Frame>
             </StackLayout>
