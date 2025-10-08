@@ -128,7 +128,7 @@
                             </Grid.ColumnDefinitions>
                             
                             <Frame CornerRadius="20" BorderColor="Navy" Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue" VerticalOptions="StartAndExpand" Margin="5">
-                                <StackLayout Spacing="5" Padding="15" VerticalOptions="CenterAndExpand">
+                                <StackLayout Spacing="5" Padding="12" VerticalOptions="CenterAndExpand">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="ongoingvc_Tapped" NumberOfTapsRequired="1"/>
                                     </StackLayout.GestureRecognizers>
@@ -137,7 +137,7 @@
                             </Frame>
                             
                             <Frame CornerRadius="20" BorderColor="Navy" Grid.Row="0" Grid.Column="1" BackgroundColor="#f2fffb" VerticalOptions="StartAndExpand" Margin="5">
-                                <StackLayout Spacing="5" Padding="15" VerticalOptions="CenterAndExpand">
+                                <StackLayout Spacing="5" Padding="12" VerticalOptions="CenterAndExpand">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="importantvc_Tapped" NumberOfTapsRequired="1"/>
                                     </StackLayout.GestureRecognizers>
