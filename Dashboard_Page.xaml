@@ -62,7 +62,7 @@
                             </Grid.ColumnDefinitions>
                             
                         <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" HeightRequest="100" Margin="5">
-                            <StackLayout x:Name="TodayVcLayout" Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                            <StackLayout x:Name="TodayVcLayout" Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Todayvc_Tapped"/>
                                 </StackLayout.GestureRecognizers>
@@ -72,7 +72,7 @@
                         </Frame>
 
                         <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="1" BackgroundColor="#f2f2ff"  VerticalOptions="StartAndExpand" HeightRequest="100" Margin="5">
-                            <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                            <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="importantvc_Tapped" NumberOfTapsRequired="1"/>
                                 </StackLayout.GestureRecognizers>
@@ -82,7 +82,7 @@
                         </Frame>
 
                         <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="1" Grid.Column="0" BackgroundColor="GhostWhite"   VerticalOptions="StartAndExpand" HeightRequest="100" Margin="5">
-                            <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                            <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="ongoingvc_Tapped"  NumberOfTapsRequired="1"/>
                                 </StackLayout.GestureRecognizers>
@@ -92,7 +92,7 @@
                         </Frame>
 
                         <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="1" Grid.Column="1" BackgroundColor="#fff2fe"  VerticalOptions="StartAndExpand" HeightRequest="100" Margin="5">
-                            <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                            <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="alerts_tapped" NumberOfTapsRequired="1"/>
                                 </StackLayout.GestureRecognizers>
@@ -102,7 +102,7 @@
                         </Frame>
 
                             <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="2" Grid.Column="0" BackgroundColor="Azure"  VerticalOptions="StartAndExpand" HeightRequest="100" Margin="5">
-                                <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                                <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="schedulevc_Tapped" NumberOfTapsRequired="1"/>
                                     </StackLayout.GestureRecognizers>
@@ -112,7 +112,7 @@
                             </Frame>
 
                             <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="2" Grid.Column="1" BackgroundColor="GhostWhite"  VerticalOptions="StartAndExpand" HeightRequest="100" Margin="5">
-                                <StackLayout Spacing="5" Padding="10" VerticalOptions="CenterAndExpand">
+                            <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="Searchbyvcid_Tapped" NumberOfTapsRequired="1"/>
                                     </StackLayout.GestureRecognizers>
@@ -123,16 +123,14 @@
                         </Grid>
 
                         <StackLayout>
-                            <!--<Frame CornerRadius="10" BorderColor="Navy"  BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" >
+                            <Frame CornerRadius="10" BorderColor="Navy"  BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" >
                                 <Grid>
 
-                                    <Label Grid.Column="0" Grid.ColumnSpan="2" x:Name="lbl_totalvc" Text="Total VC's" Padding="0"  HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" TextColor="Navy"/>
-                                    <Image  Grid.Column="1" Source="ic_total.png" HeightRequest="30"  VerticalOptions="Center"/>
+                                    <Label Grid.Column="0" Grid.ColumnSpan="2" x:Name="lbl_totalvc" Text="Total VC's" Padding="5"  HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" TextColor="Navy"/>
+                                    <!--<Image  Grid.Column="1" Source="ic_total.png" HeightRequest="40"  VerticalOptions="Center"/>-->
                                 </Grid>
-                            </Frame>-->
-                            <Frame CornerRadius="20" BorderColor="Navy"  BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" HeightRequest="35" Margin="5">
-                                <Label x:Name="lbl_totalvc" Text="Total VC's" Padding="5" HorizontalTextAlignment="Center" FontSize="16" FontAttributes="Bold" TextColor="Navy"/>
                             </Frame>
+
 
                             <Grid RowSpacing="5" ColumnSpacing="5">
                                 <Grid.RowDefinitions>
@@ -144,7 +142,7 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue"  VerticalOptions="StartAndExpand" Margin="5">
-                                    <StackLayout Spacing="5" Padding="15" VerticalOptions="CenterAndExpand">
+                                    <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="vcinmonth_tapped" NumberOfTapsRequired="1"/>
                                         </StackLayout.GestureRecognizers>
@@ -152,7 +150,7 @@
                                     </StackLayout>
                                 </Frame>
                                 <Frame CornerRadius="20" BorderColor="Navy"  Grid.Row="0" Grid.Column="1" BackgroundColor="#f2fffb"  VerticalOptions="StartAndExpand" Margin="5">
-                                    <StackLayout Spacing="5" Padding="15" VerticalOptions="CenterAndExpand">
+                                    <StackLayout Spacing="5" Padding="5" VerticalOptions="CenterAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="vcinyear_tapped" NumberOfTapsRequired="1"/>
                                         </StackLayout.GestureRecognizers>
