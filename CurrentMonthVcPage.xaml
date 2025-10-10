@@ -101,7 +101,7 @@
                 <Frame BackgroundColor="White" HorizontalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
                         <ActivityIndicator IsVisible="true" IsRunning="true" Margin="5"/>
-                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" WidthRequest="600" VerticalTextAlignment="Center"/>
+                        <Label x:Name="Lbl_PleaseWait" Text="Please Wait ..." TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
                     </StackLayout>
                 </Frame>
             </StackLayout>
