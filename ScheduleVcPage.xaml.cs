@@ -303,7 +303,7 @@ namespace NICVC
                 Loading_activity.IsVisible = false;
 
             }
-            catch (Exception ey)
+            catch (Exception)
             {
                 Loading_activity.IsVisible = false;
 

@@ -37,7 +37,7 @@ namespace NICVC
             Lbl_UserDetails.Text = Preferences.Get("DisplayName", "");
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             try
             {
@@ -104,7 +104,7 @@ namespace NICVC
                 var current = Connectivity.NetworkAccess;
                 if (current == NetworkAccess.Internet)
                 {
-                    Device.BeginInvokeOnMainThread(async () => await GetTodayVc());
+                    Dispatcher.Dispatch(async () => await GetTodayVc());
                     loadtodayvc();
                 }
                 else
@@ -120,7 +120,7 @@ namespace NICVC
             }
         }
 
-        async void loadtodayvc()
+        void loadtodayvc()
         {
             try
             {

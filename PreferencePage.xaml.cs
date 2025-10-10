@@ -45,7 +45,7 @@ namespace NICVC
                 var current = Connectivity.NetworkAccess;
                 if (current == NetworkAccess.Internet)
                 {
-                    Device.BeginInvokeOnMainThread(async () =>
+                    Dispatcher.Dispatch(async () =>
                     {
                         await GetState();
                     });
@@ -402,7 +402,7 @@ namespace NICVC
                     }
                     App.StateMasterList = stateMasterDatabase.GetStateMaster("select * from StateMaster order by StateName").ToList();
                     Loading_activity.IsVisible = false;
-                    if (Device.RuntimePlatform == Device.iOS)
+                    if (DeviceInfo.Platform == DevicePlatform.iOS)
                     {
                         Application.Current.MainPage = new NavigationPage(new PreferencePage());
                     }

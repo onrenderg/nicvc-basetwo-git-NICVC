@@ -251,7 +251,7 @@ namespace NICVC
         void Btn_CloseThisHelp_Clicked(System.Object sender, System.EventArgs e)
         {
             Stack_Carousel.IsVisible = false;
-            if (Device.RuntimePlatform == Device.iOS)
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
                 Application.Current.MainPage = new NavigationPage(new ParichayPage("Logout"));
                 return;

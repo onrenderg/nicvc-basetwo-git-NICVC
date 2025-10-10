@@ -335,7 +335,7 @@ namespace NICVC
                 lastupdatetime = dashboardlist.ElementAt(0)?.Time ?? DateTime.Now.ToString("HH:mm:ss");
 
                 // Update UI labels safely
-                Device.BeginInvokeOnMainThread(() =>
+                Dispatcher.Dispatch(() =>
                 {
                     try
                     {
@@ -369,7 +369,7 @@ namespace NICVC
             {
                 System.Diagnostics.Debug.WriteLine($"Error in showdashboard: {ex.Message}");
                 // Ensure UI is updated even if there's an error
-                Device.BeginInvokeOnMainThread(() =>
+                Dispatcher.Dispatch(() =>
                 {
                     try
                     {
@@ -489,7 +489,7 @@ namespace NICVC
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
-                Device.BeginInvokeOnMainThread(async () => await GetTodayVc());
+                Dispatcher.Dispatch(async () => await GetTodayVc());
             }
             else
             {

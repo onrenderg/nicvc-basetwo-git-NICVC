@@ -38,7 +38,7 @@ namespace NICVC
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
-                Device.BeginInvokeOnMainThread(async () => await GetCurrentMonthVc(firstDateOfMonth, currentDateOfMonth));
+                Dispatcher.Dispatch(async () => await GetCurrentMonthVc(firstDateOfMonth, currentDateOfMonth));
             }
             else
             {

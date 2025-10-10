@@ -171,7 +171,7 @@ namespace NICVC
 
         }
 
-        private async void btn_cancel_Clicked(object sender, EventArgs e)
+        private void btn_cancel_Clicked(object sender, EventArgs e)
         {
             // Just switch to the dashboard tab without recreating the TabbedPage
             var tabbedPage = (TabbedPage)Parent;

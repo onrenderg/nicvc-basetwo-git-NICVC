@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Reflection;
@@ -29,7 +29,7 @@ namespace NICVC
             }
             else
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                Dispatcher.Dispatch(async () =>
                 {
                     await DisplayAlert("Logout", "Please Logout your Parichay account from here manually!", "OK");                    
                 });
@@ -168,13 +168,13 @@ namespace NICVC
                     {
                         Preferences.Set("MobileNo", (parsed["MobileNo"].ToString() ?? "").Replace("+91",""));
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
 
                     }
                     
                     userlogindatabase.AddUserLogin(item);
-                    if (Device.RuntimePlatform == Device.iOS)
+                    if (DeviceInfo.Platform == DevicePlatform.iOS)
                     {
                         Application.Current.MainPage = new NavigationPage(new PreferencePage());
                      

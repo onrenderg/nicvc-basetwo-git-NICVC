@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -347,11 +347,11 @@ namespace NICVC
         private async void Button_Clicked(object sender, EventArgs e)
         {
             getlatlongparameters();
-            if (Device.RuntimePlatform == Device.iOS)
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
                 await Launcher.OpenAsync("http://maps.apple.com/?q=" + Latitude + "," + Longitude);
             }
-            else if (Device.RuntimePlatform == Device.Android)
+            else if (DeviceInfo.Platform == DevicePlatform.Android)
             {
                 await Launcher.OpenAsync("https://www.google.com/maps/dir/Current+Location/" + Latitude + "," + Longitude);
             }

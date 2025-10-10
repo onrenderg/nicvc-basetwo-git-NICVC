@@ -69,7 +69,7 @@ namespace NICVC
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
-                Device.BeginInvokeOnMainThread(async () => await GetYearVc());
+                Dispatcher.Dispatch(async () => await GetYearVc());
             }
             else
             {
@@ -151,11 +151,11 @@ namespace NICVC
             {
                 if (isRowEven)
                 {
-                    viewCell.View.BackgroundColor = Color.FromHex("#FFFFFF");
+                    viewCell.View.BackgroundColor = Color.FromArgb("#FFFFFF");
                 }
                 else
                 {
-                    viewCell.View.BackgroundColor = Color.FromHex("#FCF2F0");
+                    viewCell.View.BackgroundColor = Color.FromArgb("#FCF2F0");
                 }
             }
             isRowEven = !isRowEven;

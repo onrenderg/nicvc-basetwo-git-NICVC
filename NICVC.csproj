@@ -19,7 +19,6 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<NoWarn>CS0612;CS0618;CS1998;CS0168;SYSLIB0022</NoWarn>
 
 		<!-- Display name -->
 		<ApplicationTitle>NICVC</ApplicationTitle>

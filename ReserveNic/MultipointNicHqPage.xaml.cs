@@ -86,7 +86,7 @@ namespace NICVC.ReserveNic
         }
 
 
-        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             App.CurrentTabpageIndex = 1;
             App.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
