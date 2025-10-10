@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -133,10 +133,9 @@ namespace NICVC
             await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("notifydays"), App.GetLabelByKey("close"));
             await Navigation.PopAsync();
         }
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            App.CurrentTabpageIndex = 0;
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
     }
 }

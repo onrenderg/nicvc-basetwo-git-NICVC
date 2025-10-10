@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -228,7 +228,7 @@ namespace NICVC.ReserveNic
                 await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("alertsave"), App.GetLabelByKey("close"));
                 //await Navigation.PushAsync(new ViewSavedAlertsPage());
                 App.CurrentTabpageIndex = 0;
-                Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+                await Navigation.PopToRootAsync();
 
             }
         }
@@ -251,10 +251,10 @@ namespace NICVC.ReserveNic
             }
 
         }
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             App.CurrentTabpageIndex = 1;
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
     }
 }

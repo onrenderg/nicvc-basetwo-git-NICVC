@@ -153,7 +153,7 @@ namespace NICVC
                     await DisplayAlert("Success", "Profile deleted successfully.", "OK");
                     
                     // Force complete app refresh to properly reinitialize everything
-                    App.ForceAppRefresh();
+                    Application.Current.MainPage = new NavigationPage(new ParichayPage("Logout"));
                 }
                 catch (Exception ex)
                 {
@@ -208,8 +208,8 @@ namespace NICVC
                 App.SavedUserPreferList = null;
                 await Auth_Revoke();
                 
-                // Force complete app refresh instead of just showing carousel
-                App.ForceAppRefresh();
+                // Reset to login page
+                Application.Current.MainPage = new NavigationPage(new ParichayPage("Logout"));
             }
 
         }

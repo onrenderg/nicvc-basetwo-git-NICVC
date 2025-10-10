@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -251,15 +251,13 @@ namespace NICVC.ReserveNic
             {
 
                 listView_todayvcdetails.IsVisible = false;
-                listView_todayvcdetailslocal.IsVisible = true;
                 listView_todayvcdetailslocal.ItemsSource = loadtodayvcdetails(searchbar_todayvcdetails.Text);
             }
 
         }
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            App.CurrentTabpageIndex = 1;
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
     }
 }

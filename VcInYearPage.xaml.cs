@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -160,9 +160,9 @@ namespace NICVC
             }
             isRowEven = !isRowEven;
         }
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
     }
 }

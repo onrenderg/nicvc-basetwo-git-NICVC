@@ -1,4 +1,4 @@
-﻿using NICVC.Model;
+using NICVC.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -219,7 +219,7 @@ namespace NICVC
                 alertableDatabase.AddAlertable(item);
                 await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("alertsave"), App.GetLabelByKey("close"));
 
-                Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+                await Navigation.PopToRootAsync();
             }
         }
 
@@ -249,9 +249,9 @@ namespace NICVC
             }
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
     }
 }

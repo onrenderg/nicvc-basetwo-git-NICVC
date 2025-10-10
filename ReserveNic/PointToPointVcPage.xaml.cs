@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -77,10 +77,10 @@ namespace NICVC.ReserveNic
             Navigation.PushAsync(new PointToPointVcDetailsPage(dateofvc,starttimevc, vcstatus));
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             App.CurrentTabpageIndex = 1;
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
 
         private void picker_vcstatus_SelectedIndexChanged(object sender, EventArgs e)

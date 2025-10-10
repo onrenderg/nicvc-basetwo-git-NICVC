@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -67,7 +67,7 @@ namespace NICVC.ReserveNic
             }
             else
             {
-                timequery = $"select distinct replace (Startingtime,'All', 'सब')Startingtime from multipointNIC order by time(startingtime)";
+                timequery = $"select distinct replace (Startingtime,'All', '??')Startingtime from multipointNIC order by time(startingtime)";
             }
             multipointNIClist = multipointNICDatabase.GetMultipointNIC(timequery).ToList();
             picker_sort.ItemsSource = multipointNIClist;
@@ -86,7 +86,7 @@ namespace NICVC.ReserveNic
         }
 
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             App.CurrentTabpageIndex = 1;
             App.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
@@ -115,7 +115,7 @@ namespace NICVC.ReserveNic
                 }
                 else
                 {
-                    timequery = $"select distinct replace (Startingtime,'All', 'सब')Startingtime from multipointNIC order by time(startingtime)";
+                    timequery = $"select distinct replace (Startingtime,'All', '??')Startingtime from multipointNIC order by time(startingtime)";
                 }
                 // multipointNIClist = multipointNICDatabase.GetMultipointNIC($"select distinct Startingtime from multipointNIC ").ToList();
                 multipointNIClist = multipointNICDatabase.GetMultipointNIC(timequery).ToList();
@@ -135,7 +135,7 @@ namespace NICVC.ReserveNic
                 }
                 else
                 {
-                    timequery = $"select distinct replace (Startingtime,'All', 'सब')Startingtime from multipointNIC where TIME(VCEndTime) <= TIME('{currenttime}') union select 'सब' as Startingtime order by startingtime desc";
+                    timequery = $"select distinct replace (Startingtime,'All', '??')Startingtime from multipointNIC where TIME(VCEndTime) <= TIME('{currenttime}') union select '??' as Startingtime order by startingtime desc";
                 }
 
                 multipointNIClist = multipointNICDatabase.GetMultipointNIC(timequery).ToList();
@@ -153,7 +153,7 @@ namespace NICVC.ReserveNic
                 }
                 else
                 {
-                    timequery = $"select distinct replace (Startingtime,'All', 'सब')Startingtime from multipointNIC where TIME('{currenttime}') between TIME(Startingtime) and TIME(VCEndTime) union select 'सब' as Startingtime order by startingtime desc";
+                    timequery = $"select distinct replace (Startingtime,'All', '??')Startingtime from multipointNIC where TIME('{currenttime}') between TIME(Startingtime) and TIME(VCEndTime) union select '??' as Startingtime order by startingtime desc";
                 }
 
                 multipointNIClist = multipointNICDatabase.GetMultipointNIC(timequery).ToList();
@@ -172,7 +172,7 @@ namespace NICVC.ReserveNic
                 }
                 else
                 {
-                    timequery = $"select distinct replace (Startingtime,'All', 'सब')Startingtime from multipointNIC where TIME(Startingtime) >= TIME('{currenttime}') union select 'सब' as Startingtime order by startingtime desc";
+                    timequery = $"select distinct replace (Startingtime,'All', '??')Startingtime from multipointNIC where TIME(Startingtime) >= TIME('{currenttime}') union select '??' as Startingtime order by startingtime desc";
                 }
 
                 multipointNIClist = multipointNICDatabase.GetMultipointNIC(timequery).ToList();

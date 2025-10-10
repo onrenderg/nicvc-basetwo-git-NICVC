@@ -156,9 +156,8 @@ namespace NICVC
                 
                 await DisplayAlert(App.GetLabelByKey("NICVC"), App.GetLabelByKey("profilecreated"), App.GetLabelByKey("close"));
                 
-                // Force complete app refresh to properly reinitialize everything
-                App.CurrentTabpageIndex = 2; // Set to Feedback tab
-                App.ForceAppRefresh();
+                // Reload the main page to reflect changes
+                Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
             }
         }
 

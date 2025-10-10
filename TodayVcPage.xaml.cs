@@ -109,9 +109,9 @@ namespace NICVC
             }
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new NavigationPage(new NICVCTabbedPage());
+            await Navigation.PopToRootAsync();
         }
 
         private void picker_vcstatus_SelectedIndexChanged(object sender, EventArgs e)
