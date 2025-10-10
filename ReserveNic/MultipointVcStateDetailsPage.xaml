@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NICVC.ReserveNic.MultipointVcStateDetailsPage" 
@@ -224,7 +224,7 @@
             </ListView>
 
         </StackLayout>
-        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" Grid.RowSpan="999">
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Frame BackgroundColor="White" HorizontalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
