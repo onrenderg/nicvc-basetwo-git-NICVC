@@ -172,7 +172,7 @@
             <Label x:Name="Lbl_LastUpdate" Text="Last Update" Padding="10" TextColor="Navy" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="14" VerticalTextAlignment="Center"/>
         </StackLayout>                              
 
-    <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+    <ContentView x:Name="Loading_activity" BackgroundColor="#C0808080" Padding="20, 20" IsVisible="false" Grid.RowSpan="4">
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
             <Frame BackgroundColor="White" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Horizontal" Margin="6" HorizontalOptions="FillAndExpand">
